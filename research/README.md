@@ -13,5 +13,7 @@ These are snapshots and scripts behind the numbers in the README and SPEC. All d
 | `pool_twap_vs_feed.py` | Rebuilds the NVDA/USDG pool's 30-minute average from `Swap` events and compares it with the feed every 5 minutes |
 | `lp_backtest.py` | The LP backtest: every Chainlink RHNVDA round fetched from chain (cached in `data/rhnvda_rounds.csv`), the vault run through the contract's own formulas over the last 90 days. Writes `LP_BACKTEST.md`, `lp-backtest.json`, `lp-backtest-nav.svg` and `data/lp_backtest_nav_5x_80pct_7d.csv` |
 | `capacity.py` | The vault size the measured demand implies: Morpho USDG borrowing against stock tokens (from the 2026-10-03 snapshot) at TORQUE's 80% utilisation limit, the NVDA/USDG pool's balances now, and the largest NVDA/USDG Morpho market's LLTV and liquidation bonus. That the borrowing would move to knock-outs is an inference, and the script says so |
+| `morpho_demand.py` | Every Morpho market lending USDG against a stock token, read at one block: liquidation threshold, supplied, borrowed, utilisation and the most a loop can reach. Writes `morpho-demand.json` and `MORPHO_DEMAND.md` (published as torque.0xo.in/docs/demand) |
+| `compare_check.py` | An independent check of the landing page's Morpho-loop-vs-TORQUE calculator |
 
 An earlier scan for this project reported "$15 of stock-collateral lending". It was wrong: failed log requests silently returned nothing, so it saw 21 of the 303 markets. The script here retries every request and fails loudly instead.
